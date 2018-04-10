@@ -1,0 +1,5 @@
+Team name: Erran
+
+Member names: Liuyi Chen, Kai-Chin Shih, Yujie Wang
+
+Project description: Our inspiration comes from the app StaffTraveller, in which airline employees from different companies help each other by providing loading information from their own companies. Our app, Erran (inspired by the term errand), aims to allow UCSD students to help someone else complete their task while they are on their way to another destination. Here is how the app will work. If a student is at Price Center and decides to help someone else, he/she can open the app, turn on his location, and input his/her destination. The system will determine whether there is another user from the destination or along the route who’d like something from PC. Once the user completes the task, he/she will earn a credit. With the credit, he/she can request someone else to complete his/her task. 
