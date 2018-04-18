@@ -3,6 +3,10 @@ a platform that integrates all open source data on the internet, such as fault a
 crime rates, and other governmental data, to effectively analyze real estate.
 
 ![StoryboardA](/public/StoryboardA.jpg)
+(Above) Storyboard A
 ![StoryboardB](/public/StoryboardB.jpg)
+(Above) Storyboard B
 ![PrototypeA](/public/PrototypeA.PNG)
+(Above) Prototype A
 ![PrototypeB](/public/PrototypeB.PNG)
+(Above) Prototype B
