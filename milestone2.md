@@ -1,4 +1,4 @@
-![PrototypeA](/PrototypeA.png)
-![PrototypeB](/PrototypeB.png)
-![StoryboardA](/StoryboardA.jpg)
-![StoryboardB](/StoryboardB.jpg)
+![PrototypeA](/public/PrototypeA.png)
+![PrototypeB](/public/PrototypeB.png)
+![StoryboardA](/public/StoryboardA.jpg)
+![StoryboardB](/public/StoryboardB.jpg)
