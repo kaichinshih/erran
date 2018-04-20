@@ -27,8 +27,13 @@ $(document).ready(() => {
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-				$('#jobDiv').html('My job is: ' + data.job);
-				$('#petImage').attr('src', data.pet);
+			    $('#title').html('top 5 housing in your seraching area!');
+				$('#location').html( '1. ' + data.location);
+				$('#location2').html('2. ' + data.location2);
+				/**$('#price').html('price is: ' + data.price);
+				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
+				$('#earthquake').html('price is: ' + data.earthquake);
+				$('#petImage').attr('src', data.pet);**/
 			},
 		});
 	});
@@ -38,13 +43,18 @@ $(document).ready(() => {
 
 </head>
 <body>
-  <h1>Welcome to PetsApp!</h1>
+  <h1>Welcome to HousingTransparency!</h1>
 
   Name: <input id="nameBox" type="text" size="20"/>
-  <button id="readButton">Get profile</button>
-  <button id="allUsersButton">Get all usernames</button>
+  <button id="readButton">Get house</button>
+  <button id="allUsersButton">Get all available locations </button>
 
-  <div id="jobDiv"></div>
+  <div id="title"></div>
+ <a href><div id="location"></div></a>
+ <a href><div id="location2"></div></a>
+  <div id="price"></div>
+    <div id="crimeRate"></div>
+      <div id="earthquake"></div>
   <img id="petImage"></img>
 
   <hr/>

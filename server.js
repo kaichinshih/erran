@@ -4,9 +4,12 @@ const app = express();
 app.use(express.static('static_files/'));
 
 const fakeDatabase = {
-	'Philip': {job:'professor', pet: 'cat.jpg'},
-	'John': {job:'student', pet: 'dog.jpg'},
-	'Carol': {job:'engineer', pet: 'bear.jpg'},
+'La Jolla' :{location:'Villas of Renaissance',
+location2:'La Regencia'},
+
+'OceanSide' :{location:'Villas of RenaissanceXXX',
+location2: 'La RengenciaXXX'}
+
 };
 
 app.get('/users', (req, res) => {
@@ -27,3 +30,22 @@ app.get('/users/:userid', (req, res) => {
 app.listen(3000, () => {
 	console.log('Server started on http://localhost:3000/');
 });
+
+
+
+/**const fakeDatabase = {
+	'Lo Jolla': [ {
+		"Villas of Renaissance" : {price:'$ 2800-3400/mon',crimeRate: 'low', earthquake:'medium risk' },
+		"La Regencia" : {price:'$ 2700-3200/mon',crimeRate: 'medium', earthquake:'medium risk' }
+
+	}
+],	
+
+	'OceanSide': [ {
+		"Villas of XXXX" : {price:'$ 2800-3400/mon',crimeRate: 'low', earthquake:'medium risk' },
+		"La RegenciaXXXXX" : {price:'$ 2700-3200/mon',crimeRate: 'medium', earthquake:'medium risk' }
+
+	}
+],	
+
+};**/
