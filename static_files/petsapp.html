@@ -1,0 +1,54 @@
+<html>
+<head>
+<title>PetsApp</title>
+
+<script src="jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+$(document).ready(() => {
+	console.log("hello world in the browser");
+	$('#allUsersButton').click(() => {
+		$.ajax({
+			url: 'users/',
+			type: 'GET',
+			dataType: 'json',
+			success: (data) => {
+				$('#status').html('All users: ' + data);
+			},
+		});
+	});
+
+	$('#readButton').click(() => {
+		const requestURL = 'users/' + $('#nameBox').val();
+		console.log(requestURL);
+		$.ajax({
+			url: requestURL,
+			type: 'GET',
+			dataType: 'json',
+			success: (data) => {
+				$('#jobDiv').html('My job is: ' + data.job);
+				$('#petImage').attr('src', data.pet);
+			},
+		});
+	});
+});
+
+</script>
+
+</head>
+<body>
+  <h1>Welcome to PetsApp!</h1>
+
+  Name: <input id="nameBox" type="text" size="20"/>
+  <button id="readButton">Get profile</button>
+  <button id="allUsersButton">Get all usernames</button>
+
+  <div id="jobDiv"></div>
+  <img id="petImage"></img>
+
+  <hr/>
+
+  <div id="status"></div>
+</body>
+</html>
