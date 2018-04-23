@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>PetsApp</title>
+<title>Housing Transparency</title>
 
 <script src="jquery-3.3.1.min.js"></script>
 
@@ -8,13 +8,13 @@
 
 $(document).ready(() => {
 	console.log("hello world in the browser");
-	$('#allUsersButton').click(() => {
+	$('#allLocationsButton').click(() => {
 		$.ajax({
 			url: 'users/',
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-				$('#status').html('All users: ' + data);
+				$('#status').html('Available locations in the area: ' + data);
 			},
 		});
 	});
@@ -27,7 +27,7 @@ $(document).ready(() => {
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-			    $('#title').html('top 5 housing in your seraching area!');
+			    $('#title').html('Top housing options in your search area!');
 				$('#location').html( '1. ' + data.location);
 				$('#location2').html('2. ' + data.location2);
 				/**$('#price').html('price is: ' + data.price);
@@ -47,7 +47,7 @@ $(document).ready(() => {
 
   Name: <input id="nameBox" type="text" size="20"/>
   <button id="readButton">Get house</button>
-  <button id="allUsersButton">Get all available locations </button>
+  <button id="allLocationsButton">Get all available locations </button>
 
   <div id="title"></div>
  <a href><div id="location"></div></a>
