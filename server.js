@@ -7,8 +7,8 @@ const fakeDatabase = {
 'La Jolla' :{location:'Villas of Renaissance',
 location2:'La Regencia'},
 
-'OceanSide' :{location:'Villas of RenaissanceXXX',
-location2: 'La RengenciaXXX'}
+'OceanSide' :{SecondLocation:'Villas of RenaissanceXXX',
+SecondLocation2: 'La RengenciaXXX'}
 
 };
 
@@ -49,3 +49,5 @@ app.listen(3000, () => {
 ],	
 
 };**/
+
+

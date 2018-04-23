@@ -22,6 +22,7 @@ $(document).ready(() => {
 	$('#readButton').click(() => {
 		const requestURL = 'users/' + $('#nameBox').val();
 		console.log(requestURL);
+		if (requestURL == 'users/La Jolla'){
 		$.ajax({
 			url: requestURL,
 			type: 'GET',
@@ -35,7 +36,41 @@ $(document).ready(() => {
 				$('#earthquake').html('price is: ' + data.earthquake);
 				$('#petImage').attr('src', data.pet);**/
 			},
+		});}
+
+		else if(requestURL == 'users/OceanSide'){
+			$.ajax({
+			url: requestURL,
+			type: 'GET',
+			dataType: 'json',
+			success: (data) => {
+			    $('#title').html('Top housing options in your search area!');
+				$('#SecondLocation').html( '1. ' + data.SecondLocation);
+				$('#SecondLocation2').html('2. ' + data.SecondLocation2);
+				/**$('#price').html('price is: ' + data.price);
+				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
+				$('#earthquake').html('price is: ' + data.earthquake);
+				$('#petImage').attr('src', data.pet);**/
+			},
 		});
+		}
+
+		else {
+				$.ajax({
+			url: requestURL,
+			type: 'GET',
+			dataType: 'json',
+			success: (data) => {
+			    $('#title').html('results not found!');
+				/**$('#location.2').html( '1. ' + data.location);
+				$('#location2.2').html('2. ' + data.location2);
+				$('#price').html('price is: ' + data.price);
+				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
+				$('#earthquake').html('price is: ' + data.earthquake);
+				$('#petImage').attr('src', data.pet);**/
+			},
+		});
+		}
 	});
 });
 
@@ -50,8 +85,10 @@ $(document).ready(() => {
   <button id="allLocationsButton">Get all available locations </button>
 
   <div id="title"></div>
- <a href = "housingInfo.html"><div id="location"></div></a>
- <a href = "housingInfo.html"><div id="location2"></div></a>
+ <a href = "housingInfo-VOR.html"><div id="location"></div></a>
+ <a href = "housingInfo-LR.html"><div id="location2"></div></a>
+ <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
+  <a href = "Second-housingInfo-LRXXX.html"><div id="SecondLocation2"></div></a>
   <div id="price"></div>
     <div id="crimeRate"></div>
       <div id="earthquake"></div>
