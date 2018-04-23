@@ -29,6 +29,7 @@ $(document).ready(() => {
 			dataType: 'json',
 			success: (data) => {
 			    $('#title').html('Top housing options in your search area!');
+			    $('#areaImage').attr('src', data.image);
 				$('#location').html( '1. ' + data.location);
 				$('#location2').html('2. ' + data.location2);
 				/**$('#price').html('price is: ' + data.price);
@@ -45,12 +46,12 @@ $(document).ready(() => {
 			dataType: 'json',
 			success: (data) => {
 			    $('#title').html('Top housing options in your search area!');
+			    $('#areaImage').attr('src', data.image);
 				$('#SecondLocation').html( '1. ' + data.SecondLocation);
 				$('#SecondLocation2').html('2. ' + data.SecondLocation2);
 				/**$('#price').html('price is: ' + data.price);
 				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
-				$('#earthquake').html('price is: ' + data.earthquake);
-				$('#petImage').attr('src', data.pet);**/
+				$('#earthquake').html('price is: ' + data.earthquake);**/
 			},
 		});
 		}
@@ -61,7 +62,7 @@ $(document).ready(() => {
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-			    $('#title').html('results not found!');
+			    $('#title').html('Please click on "Get all available locations" to view all options');
 				/**$('#location.2').html( '1. ' + data.location);
 				$('#location2.2').html('2. ' + data.location2);
 				$('#price').html('price is: ' + data.price);
@@ -79,20 +80,24 @@ $(document).ready(() => {
 </head>
 <body>
   <h1>Welcome to HousingTransparency!</h1>
-
-  Name: <input id="nameBox" type="text" size="20"/>
-  <button id="readButton">Get house</button>
+  <p>Welcome to HousingTransparency, your one stop for obtaining all information regarding your housing. From earthquake risks, crime rates, convenience, to unit prices, HousingTransparency aims to make it easy for users to access all available data in a single click.</p>
+  <p>Please click on "Get all available locations" to view all options</p>
   <button id="allLocationsButton">Get all available locations </button>
+  <br>
+  <br>
+  Look up a location: <input id="nameBox" type="text" size="20"/>
+  <button id="readButton">Get house</button>
+
 
   <div id="title"></div>
  <a href = "housingInfo-VOR.html"><div id="location"></div></a>
  <a href = "housingInfo-LR.html"><div id="location2"></div></a>
  <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
   <a href = "Second-housingInfo-LRXXX.html"><div id="SecondLocation2"></div></a>
+  <img id="areaImage"></img>
   <div id="price"></div>
     <div id="crimeRate"></div>
       <div id="earthquake"></div>
-  <img id="petImage"></img>
 
 
 
