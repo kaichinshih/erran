@@ -39,11 +39,13 @@ app.post('/users', (req, res) => {
   console.log(req.body);
 
   db.run(
-    'INSERT INTO users_to_houses VALUES ($estate, $price, $house)',
+    'INSERT INTO users_to_houses VALUES ($estate, $price, $rating, $risks, $house)',
     // parameters to SQL query:
     {
       $estate: req.body.estate,
       $price: req.body.price,
+      $rating: req.body.rating,
+      $risks: req.body.risks,
       $house: req.body.house,
     },
     // callback function to run when the query finishes:

@@ -40,12 +40,16 @@ $(document).ready(() => {
         if (data.price && data.house) {
         	$('#title').html(data.estate);
           $('#status').html('Successfully fetched data at URL: ' + requestURL);
-          $('#price').html('the price is' + data.price);
+          $('#price').html('Typical price range is ' + data.price);
+          $('#rating').html('Average Yelp rating is ' + data.rating);
+          $('#risks').html('Liquefaction risk is ' + data.rating);
           $('#houseImage').attr('src', data.house).attr('width', '300px');
         } else {
           $('#status').html('Error: could not find user at URL: ' + requestURL);
           // clear the display
           $('#price').html('');
+          $('#rating').html('');
+          $('#risks').html('');
           $('#houseImage').attr('src', '').attr('width', '0px');
         }
       },
@@ -84,8 +88,8 @@ $(document).ready(() => {
 
   
   <div id="price"></div>
-    <div id="crimeRate"></div>
-      <div id="earthquake"></div>
+  <div id="rating"></div>
+    <div id="risks"></div>
       <img id="houseImage"></img>
 
 
