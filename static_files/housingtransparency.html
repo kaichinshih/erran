@@ -1,6 +1,9 @@
 <html>
 <head>
+	
+	
 <title>Housing Transparency</title>
+<link href="/style.css" rel="stylesheet">
 
 <script src="jquery-3.3.1.min.js"></script>
 
@@ -14,66 +17,76 @@ $(document).ready(() => {
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
+
 				$('#status').html('Available locations in the area: ' + data);
 			},
 		});
 	});
 
 	$('#readButton').click(() => {
-		const requestURL = 'users/' + $('#nameBox').val();
+		const requestURL = 'users/' +$('#nameBox').val();
+		const emptyUrl = $('#nameBox').val();
 		console.log(requestURL);
-		if (requestURL == 'users/La Jolla'){
 		$.ajax({
 			url: requestURL,
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-			    $('#title').html('Top housing options in your search area!');
-			    $('#areaImage').attr('src', data.image);
-				$('#location').html( '1. ' + data.location);
-				$('#location2').html('2. ' + data.location2);
+				const index = Object.keys(data); //data 的数字
+				const length = Object.keys(data).length+1;
+				//console.log("length" + length);
+				if (emptyUrl == ""){
+                  $('#title').html('Error: could not find user at URL: ' + requestURL);
+					$('#residential').html("");
+
+				}
+
+				else if (length>0){
+                    
+					$('#title').html('Top housing options in your search area!');
+
+                           $('#residential').html('');
+				    	for (const e of index){
+					$('#residential').append('<a href="#" onclick="showAdd" id= "detailInfo">' + data[e] +  ' ' + '</a>' + '<br />');
+					        //const estatesE = data[estates][e];
+                             //console.log(data[e][1]);
+				}
+
+					$('#detailInfo').click((e) => {
+                                  const txt = $(e.target).text();
+
+                                  console.log(txt);
+
+                            	});
+
+				}
+
+				else{
+
+					$('#title').html('Error: could not find user at URL: ' + requestURL);
+					$('#residential').html("");
+				}
+			    //$('#title').html('Top housing options in your search area!');
+			    //$('#areaImage').attr('src', data.image);
+				//$('#location').html( '1. ' + data.location);
+				//$('#location2').html('2. ' + data.location2);
 				/**$('#price').html('price is: ' + data.price);
 				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
 				$('#earthquake').html('price is: ' + data.earthquake);
 				$('#petImage').attr('src', data.pet);**/
 			},
-		});}
-
-		else if(requestURL == 'users/OceanSide'){
-			$.ajax({
-			url: requestURL,
-			type: 'GET',
-			dataType: 'json',
-			success: (data) => {
-			    $('#title').html('Top housing options in your search area!');
-			    $('#areaImage').attr('src', data.image);
-				$('#SecondLocation').html( '1. ' + data.SecondLocation);
-				$('#SecondLocation2').html('2. ' + data.SecondLocation2);
-				/**$('#price').html('price is: ' + data.price);
-				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
-				$('#earthquake').html('price is: ' + data.earthquake);**/
-			},
 		});
-		}
 
-		else {
-				$.ajax({
-			url: requestURL,
-			type: 'GET',
-			dataType: 'json',
-			success: (data) => {
-			    $('#title').html('Please click on "Get all available locations" to view all options');
-				/**$('#location.2').html( '1. ' + data.location);
-				$('#location2.2').html('2. ' + data.location2);
-				$('#price').html('price is: ' + data.price);
-				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
-				$('#earthquake').html('price is: ' + data.earthquake);
-				$('#petImage').attr('src', data.pet);**/
-			},
-		});
-		}
 	});
+
+
+
 });
+
+
+
+
+
 
 </script>
 
@@ -90,18 +103,29 @@ $(document).ready(() => {
 
 
   <div id="title"></div>
- <a href = "housingInfo-VOR.html"><div id="location"></div></a>
+ <!--<a href = "housingInfo-VOR.html"><div id="location"></div></a>
  <a href = "housingInfo-LR.html"><div id="location2"></div></a>
  <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
   <a href = "Second-housingInfo-LRXXX.html"><div id="SecondLocation2"></div></a>
-  <img id="areaImage"></img>
+  <img id="areaImage"></img>-->
+  <div id="residential">
+
+  <div class = "information">
   <div id="price"></div>
     <div id="crimeRate"></div>
       <div id="earthquake"></div>
 
-
-
+</div>
+</div>
 
   <div id="status"></div>
 </body>
 </html>
+<script>
+
+	function showAdd(){
+	var introBar = document.getElementsByClassName("information")[0];
+	introBar.style.display = 'block';
+}
+
+</script>
