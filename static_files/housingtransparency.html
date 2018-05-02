@@ -1,6 +1,6 @@
 <html>
 <head>
-	
+	>
 	
 <title>Housing Transparency</title>
 <link href="/style.css" rel="stylesheet">
@@ -47,15 +47,25 @@ $(document).ready(() => {
 
                            $('#residential').html('');
 				    	for (const e of index){
-					$('#residential').append('<a href="#" onclick="showAdd" id= "detailInfo">' + data[e] +  ' ' + '</a>' + '<br />');
+					$('#residential').append('<a href="#" onclick="showAdd()" id= "detailInfo">' + data[e] +  ' ' + '</a>' + '<br />');
 					        //const estatesE = data[estates][e];
                              //console.log(data[e][1]);
 				}
 
 					$('#detailInfo').click((e) => {
                                   const txt = $(e.target).text();
+                                  requestURL2 = requestURL + "/" + txt;
+                                  console.log(requestURL2);
 
-                                  console.log(txt);
+                                  $.ajax({
+			                      url: requestURL2,
+			                      type: 'GET',
+			                      dataType: 'json',
+			                      success: (data) => {
+				                   $('#price').html('Available locations in the area: ' + data.price);
+				                   console.log(data.price);
+			                       },
+		                           });
 
                             	});
 
@@ -119,9 +129,8 @@ $(document).ready(() => {
 </div>
 
   <div id="status"></div>
-</body>
-</html>
-<script>
+
+  <script>
 
 	function showAdd(){
 	var introBar = document.getElementsByClassName("information")[0];
@@ -129,3 +138,6 @@ $(document).ready(() => {
 }
 
 </script>
+
+</body>
+</html>
