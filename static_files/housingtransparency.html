@@ -43,23 +43,33 @@ $(document).ready(() => {
 
 				else if (length>0){
                     
-					$('#title').html('Top housing options in your search area!');
+     $('#title').html('Top housing options in your search area!');
 
                            $('#residential').html('');
-				    	for (const e of index){
-					$('#residential').append('<a href="#" onclick="showAdd" id= "detailInfo">' + data[e] +  ' ' + '</a>' + '<br />');
-					        //const estatesE = data[estates][e];
+         for (const e of index){
+     $('#residential').append('<a href=" " onclick="showAdd();" id= "detailInfo">' + data[e] +  ' ' + '</a >' + '<br />');
+             //const estatesE = data[estates][e];
                              //console.log(data[e][1]);
-				}
+    }
 
-					$('#detailInfo').click((e) => {
+     $('#detailInfo').click((e) => {
                                   const txt = $(e.target).text();
+                                  requestURL2 = requestURL + "/" + txt;
+                                  console.log(requestURL2);
 
-                                  console.log(txt);
+                                  $.ajax({
+                         url: requestURL2,
+                         type: 'GET',
+                         dataType: 'json',
+                         success: (data) => {
+                       $('#price').html('Available locations in the area: ' + data.price);
+                       console.log(data.price);
+                          },
+                             });
 
-                            	});
+                             });
 
-				}
+    }
 
 				else{
 
@@ -108,7 +118,7 @@ $(document).ready(() => {
  <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
   <a href = "Second-housingInfo-LRXXX.html"><div id="SecondLocation2"></div></a>
   <img id="areaImage"></img>-->
-  <div id="residential">
+  <div id="residential"></div>
 
   <div class = "information">
   <div id="price"></div>
@@ -116,16 +126,18 @@ $(document).ready(() => {
       <div id="earthquake"></div>
 
 </div>
-</div>
+
 
   <div id="status"></div>
-</body>
-</html>
-<script>
-
+  <script>
 	function showAdd(){
 	var introBar = document.getElementsByClassName("information")[0];
 	introBar.style.display = 'block';
+	console.log('...');
 }
 
+
+
 </script>
+</body>
+</html>
