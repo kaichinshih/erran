@@ -16,12 +16,13 @@ $(document).ready(() => {
       data: {
               estate: $('#insertEstateBox').val(),
               price: $('#insertPriceBox').val(),
-              rating: $('#insertRatingBox').val()
-              risks: $('#insertRisksBox').val()
+              rating: $('#insertRatingBox').val(),
+              risks: $('#insertRisksBox').val(),
               house: $('#insertHouseBox').val()
             },
       success: (data) => {
         $('#status').html(data.message);
+        goBack();
       }
     });
   });
@@ -48,7 +49,7 @@ $(document).ready(() => {
   <br>
   Image (e.g. LaJolla.jpg): <input id="insertHouseBox" type="text" size="20"/>
   <br>
-  <button id="insertButton">Add to HousingTransparency</button>
+  <button id="insertButton">Add Listing and Return</button>
   <button onclick="goBack()"> Cancel</button>
 
 <div id="status"></div>
