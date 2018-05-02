@@ -24,71 +24,33 @@ $(document).ready(() => {
 	});
 
 	$('#readButton').click(() => {
-		const requestURL = 'users/' +$('#nameBox').val();
-		const emptyUrl = $('#nameBox').val();
-		console.log(requestURL);
-		$.ajax({
-			url: requestURL,
-			type: 'GET',
-			dataType: 'json',
-			success: (data) => {
-				const index = Object.keys(data); //data 的数字
-				const length = Object.keys(data).length+1;
-				//console.log("length" + length);
-				if (emptyUrl == ""){
-                  $('#title').html('Error: could not find user at URL: ' + requestURL);
-					$('#residential').html("");
-
-				}
-
-				else if (length>0){
-                    
-     $('#title').html('Top housing options in your search area!');
-
-                           $('#residential').html('');
-         for (const e of index){
-     $('#residential').append('<a href=" " onclick="showAdd();" id= "detailInfo">' + data[e] +  ' ' + '</a >' + '<br />');
-             //const estatesE = data[estates][e];
-                             //console.log(data[e][1]);
-    }
-
-     $('#detailInfo').click((e) => {
-                                  const txt = $(e.target).text();
-                                  requestURL2 = requestURL + "/" + txt;
-                                  console.log(requestURL2);
-
-                                  $.ajax({
-                         url: requestURL2,
-                         type: 'GET',
-                         dataType: 'json',
-                         success: (data) => {
-                       $('#price').html('Available locations in the area: ' + data.price);
-                       console.log(data.price);
-                          },
-                             });
-
-                             });
-
-    }
-
-				else{
-
-					$('#title').html('Error: could not find user at URL: ' + requestURL);
-					$('#residential').html("");
-				}
-			    //$('#title').html('Top housing options in your search area!');
-			    //$('#areaImage').attr('src', data.image);
-				//$('#location').html( '1. ' + data.location);
-				//$('#location2').html('2. ' + data.location2);
-				/**$('#price').html('price is: ' + data.price);
-				$('#crimeRate').html('Crime Rate is: ' + data.crimeRate);
-				$('#earthquake').html('price is: ' + data.earthquake);
-				$('#petImage').attr('src', data.pet);**/
-			},
-		});
-
-	});
-
+		const title = $('#nameBox').val();
+    const requestURL = 'users/' + $('#nameBox').val();
+    console.log('making ajax request to:', requestURL);
+    // From: http://learn.jquery.com/ajax/jquery-ajax-methods/
+    // Using the core $.ajax() method since it's the most flexible.
+    // ($.get() and $.getJSON() are nicer convenience functions)
+    $.ajax({
+      // all URLs are relative to http://localhost:3000/
+      url: requestURL,
+      type: 'GET',
+      dataType : 'json', // this URL returns data in JSON format
+      success: (data) => {
+        console.log('You received some data!', data);
+        if (data.price && data.house) {
+        	$('#title').html(data.estate);
+          $('#status').html('Successfully fetched data at URL: ' + requestURL);
+          $('#price').html('the price is' + data.price);
+          $('#houseImage').attr('src', data.house).attr('width', '300px');
+        } else {
+          $('#status').html('Error: could not find user at URL: ' + requestURL);
+          // clear the display
+          $('#price').html('');
+          $('#houseImage').attr('src', '').attr('width', '0px');
+        }
+      },
+    });
+  });
 
 
 });
@@ -118,26 +80,23 @@ $(document).ready(() => {
  <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
   <a href = "Second-housingInfo-LRXXX.html"><div id="SecondLocation2"></div></a>
   <img id="areaImage"></img>-->
-  <div id="residential"></div>
+ 
 
-  <div class = "information">
+  
   <div id="price"></div>
     <div id="crimeRate"></div>
       <div id="earthquake"></div>
+      <img id="houseImage"></img>
 
-</div>
+
 
 
   <div id="status"></div>
-  <script>
-	function showAdd(){
-	var introBar = document.getElementsByClassName("information")[0];
-	introBar.style.display = 'block';
-	console.log('...');
-}
+  	<div id ="database">
+  	<a href = "database.html"> database </a>
+  </div>
 
 
 
-</script>
 </body>
 </html>
