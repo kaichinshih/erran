@@ -21,10 +21,10 @@ db.serialize(() => {
   db.run("CREATE TABLE users_to_houses ( estate TXT, price TEXT, rating TEXT, risks TEXT, house TEXT)");
 
   // insert 3 rows of data:
-  db.run("INSERT INTO users_to_houses VALUES ('Villas of Renaissance', '$ 1855-3800/mon', '3.5 Stars', '0.51-1.60', VoR.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('La Regencia', '$ 2000-3600/mon', '2.5 Stars', '0.51-1.60', 'LR.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('Regents Court', '$ 1900-3800/mon', '2.5 Stars', '0.51-1.60', 'RC.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('Solazzo', '$ 2000-4000/mon', ‘2 Stars’, '0.51-1.60', 'Solazzo.jpg')");
+  db.run("INSERT INTO users_to_houses VALUES ('Villas of Renaissance', '$ 1855-3800/mon', '3.5 Stars', '0.51-1.60 (High)', 'VoR.jpg')");
+  db.run("INSERT INTO users_to_houses VALUES ('La Regencia', '$ 2000-3600/mon', '2.5 Stars', '0.51-1.60 (High)', 'LR.jpg')");
+  db.run("INSERT INTO users_to_houses VALUES ('Regents Court', '$ 1900-3800/mon', '2.5 Stars', '0.51-1.60 (High)', 'RC.jpg')");
+  db.run("INSERT INTO users_to_houses VALUES ('Solazzo', '$ 2000-4000/mon', '2 Stars', '0.51-1.60 (High)', 'Solazzo.jpg')");
 
   console.log('successfully created the users_to_houses table in houses.db');
 

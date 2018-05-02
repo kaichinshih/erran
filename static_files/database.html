@@ -17,7 +17,7 @@ $(document).ready(() => {
               estate: $('#insertEstateBox').val(),
               price: $('#insertPriceBox').val(),
               rating: $('#insertRatingBox').val()
-              risks: $('#insertRiskBox').val()
+              risks: $('#insertRisksBox').val()
               house: $('#insertHouseBox').val()
             },
       success: (data) => {
@@ -39,9 +39,13 @@ $(document).ready(() => {
 <h1>Adding a new listing to HousingTransparency</h1>
 <hr/>
   Property Name: <input id="insertEstateBox" type="text" size="20"/>
+  <br>
   Price Range: <input id="insertPriceBox" type="text" size="20"/>
+  <br>
   Rating: <input id="insertRatingBox" type="text" size="20"/>
-  Liquefaction Risk: <input id="insertRiskBox" type="text" size="20"/>
+  <br>
+  Liquefaction Risk: <input id="insertRisksBox" type="text" size="20"/>
+  <br>
   Image (e.g. LaJolla.jpg): <input id="insertHouseBox" type="text" size="20"/>
   <br>
   <button id="insertButton">Add to HousingTransparency</button>

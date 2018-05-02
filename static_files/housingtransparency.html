@@ -42,7 +42,7 @@ $(document).ready(() => {
           $('#status').html('Successfully fetched data at URL: ' + requestURL);
           $('#price').html('Typical price range is ' + data.price);
           $('#rating').html('Average Yelp rating is ' + data.rating);
-          $('#risks').html('Liquefaction risk is ' + data.rating);
+          $('#risks').html('Liquefaction risk is ' + data.risks);
           $('#houseImage').attr('src', data.house).attr('width', '300px');
         } else {
           $('#status').html('Error: could not find user at URL: ' + requestURL);
@@ -78,7 +78,7 @@ $(document).ready(() => {
   <button id="readButton">Get house</button>
 
 
-  <div id="title"></div>
+  <h2><div id="title"></div></h2>
  <!--<a href = "housingInfo-VOR.html"><div id="location"></div></a>
  <a href = "housingInfo-LR.html"><div id="location2"></div></a>
  <a href = "Second-housingInfo-VORXXX.html"><div id="SecondLocation"></div></a>
@@ -97,7 +97,7 @@ $(document).ready(() => {
 
   <div id="status"></div>
   	<div id ="database">
-  	<a href = "database.html"> database </a>
+  	<a href = "database.html"> Have a new listing? Add it here! </a>
   </div>
 
 
