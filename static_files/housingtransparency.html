@@ -17,11 +17,38 @@ $(document).ready(() => {
 			type: 'GET',
 			dataType: 'json',
 			success: (data) => {
-
-				$('#status').html('Available locations in the area: ' + data);
+				$('#status').html( 'Available locations in the area: ' );
+        Object.keys(data).forEach((estate)=> {
+          console.log('estate' + estate);
+          $('#status').append( '<li>' + data[estate] + '</li>' );
+        });
 			},
 		});
 	});
+
+  $('#topRated').click(()=>{
+     
+    $.ajax({
+      url: 'users/',
+      type: 'GET',
+      dataType: 'json',
+      success: (data) => {
+        $('#status').html( 'Top 5 Rated: ' );
+        const array = [];
+        Object.keys(data).forEach((estate)=> {
+          console.log('estate' + data.rateInt);
+          array.push(data.rateInt);
+             console.log('arrayis' + array);
+         // $('#status').append( '<li>' + data[estate].rateInt + '</li>' );
+        });
+       /** const sortedArray = array.sort();
+             console.log('Sortarrayis' + sortedArray);
+             for(var i = 0; i < 4; i++){
+              $('#status').append( '<li>' + sortedArray[i] + '</li>' );
+             }**/
+      },        
+    });
+  });
 
 	$('#readButton').click(() => {
 		const title = $('#nameBox').val();
@@ -72,6 +99,7 @@ $(document).ready(() => {
   <p>Welcome to HousingTransparency, your one stop for obtaining all information regarding your housing. From earthquake risks, crime rates, convenience, to unit prices, HousingTransparency aims to make it easy for users to access all available data in a single click.</p>
   <p>Please click on "Get all available locations" to view all options</p>
   <button id="allLocationsButton">Get all available locations </button>
+  <button id="topRated">top 2 rated estates </button>
   <br>
   <br>
   Look up a location: <input id="nameBox" type="text" size="20"/>

@@ -1,0 +1,105 @@
+<html>
+<head>
+<title>database</title>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
+    authDomain: "cogs121-w-c-s.firebaseapp.com",
+    databaseURL: "https://cogs121-w-c-s.firebaseio.com",
+    projectId: "cogs121-w-c-s",
+    storageBucket: "",
+    messagingSenderId: "502637431727"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<script src="jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+$(document).ready(() => {
+     const database = firebase.database();
+
+$('#resetButton').click(()=> {
+    console.log('resetting the database');
+    database.ref('La Jolla/').remove();
+    database.ref('Little Italy/').remove();
+    database.ref('A/').remove();
+    database.ref('La Jolla/ Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"La Jolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance"});
+    database.ref('La Jolla/ La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia"});
+
+    database.ref('Little Italy/ Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany"});
+    database.ref('Little Italy/ Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo"});
+      database.ref('A/B').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"A", estate2:"B"});
+    database.ref('A/C').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"A", estate2:"C"});
+    });
+
+
+
+
+ $('#insertButton').click(() => {
+    const area = $('#insertAreaBox').val();
+    const estate = $('#insertEstateBox').val();
+    //const lowPrice = $('#insertLowestPriceBox').val();
+    //const highPrice = $('#insertHighestPriceBox').val();
+    //const rating = $('#insertRatingBox').val();
+    //const risk = $('#insertRiskBox').val();
+    console.log('/' +area + '/'+ estate);
+    database.ref('/' +area + '/'+ estate).set({
+      lowestPrice: $('#insertLowestPriceBox').val(),
+      highestPrice: $('#insertHighestPriceBox').val(),
+      rating: $('#insertRatingBox').val(),
+      risk: $('#insertRiskBox').val(),
+      image: $('#insertImageBox').val(),
+      location : $('#insertLocationBox').val(),
+      estate2 : $('#insertEstate2Box').val()
+    });
+  });
+
+
+
+       $('#deleteButton').click(() => {
+    const area = $('#deleteAreaBox').val();
+      const estate = $('#deleteEstateBox').val();
+      console.log('/' + area + '/' + estate);
+    database.ref('/' + area + '/' + estate).remove();
+    
+  });
+
+});
+</script>
+
+<body>
+
+   <button id="resetButton">Reset database</button>
+ <hr/>
+  Area: <input id="insertAreaBox" type="text" size="20"/>
+  Estate: <input id="insertEstateBox" type="text" size="20"/>
+  LowestPrice: <input id="insertLowestPriceBox" type="text" size="20"/>
+  HighestPrice: <input id="insertHighestPriceBox" type="text" size="20"/>
+  Rating: <input id="insertRatingBox" type="text" size="20"/>
+  Risk: <input id="insertRiskBox" type="text" size="20"/>
+  Location: <input id="insertLocationBox" type="text" size="20"/>
+  Estate2: <input id="insertEstate2Box" type="text" size="20"/>
+  Image: <input id="insertImageBox" type="text" size="20"/>
+  <button id="insertButton">Insert into database</button>
+
+  <hr/>
+  Area: <input id="deleteAreaBox" type="text" size="20"/>
+  Estate: <input id="deleteEstateBox" type="text" size="20"/>
+  <button id="deleteButton">Delete from database</button>
+
+  <hr/>
+  <div id="status"></div>
+   <div id="back"> <a onclick = "goBack()"> cancel </a> </div>
+
+</body>
+</html>
+
+<script>
+function goBack() {
+    window.history.back();
+}
+</script>

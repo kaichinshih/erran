@@ -31,6 +31,16 @@ app.get('/users', (req, res) => {
 
 
 
+app.get('/rating', (req, res) => {
+  // db.all() fetches all results from an SQL query into the 'rows' variable:
+  db.all('SELECT rateInt FROM users_to_houses', (err, rows) => {
+    console.log(rows);
+    //const rating = rows.map(e => e.rateInt);
+    rating = 'lalala'
+    console.log(rating);
+    res.send(rating);
+  });
+});
 
 
 const bodyParser = require('body-parser');

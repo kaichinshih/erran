@@ -1,0 +1,166 @@
+<html>
+<head>
+
+<title>housingApp</title>
+<link href="/style.css" rel="stylesheet">
+
+<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
+    authDomain: "cogs121-w-c-s.firebaseapp.com",
+    databaseURL: "https://cogs121-w-c-s.firebaseio.com",
+    projectId: "cogs121-w-c-s",
+    storageBucket: "",
+    messagingSenderId: "502637431727"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="jquery-3.3.1.min.js"></script>
+
+
+
+<script type="text/javascript">
+	$(document).ready(() => {
+      //database
+	const database = firebase.database();
+
+    
+  $('#readButton').click(() => {
+    const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
+    // 'once' reads the value once from the database
+    database.ref(key).once('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log('You received some data!', data);
+      if (!data) {
+        // clear the display
+        $('#estate').html('');
+        $('#lowPrice').html('');
+        $('#highPrice').html('');
+        $('#rating').html('');
+        $('#risk').html('');
+        $('#Image').attr('src', '').attr('width', '0px');
+        $('#status').html('Error: could not find user: ' + key);
+        return;
+      }
+      if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
+        $('#estate').html($('#estateBox').val());
+        $('#lowPrice').html(data.lowestPrice);
+        $('#highPrice').html(data.highestPrice);
+        $('#rating').html(data.rating);
+        $('#risk').html(data.risk);
+        $('#Image').attr('src', data.image).attr('width', '300px');
+      } else {
+        // clear the display
+       $('#estate').html('');
+        $('#lowPrice').html('');
+        $('#highPrice').html('');
+        $('#rating').html('');
+        $('#risk').html('');
+        $('#Image').attr('src', '').attr('width', '0px');
+      }
+    });
+  });
+
+
+
+
+
+
+
+
+
+
+$('#allUsersButton').click(() => {
+  //var introBar = document.getElementById("tr")[0];
+  //introBar.style.display = 'block';
+  database.ref().once('value', function(snapshot){
+  console.log(snapshot.val());
+  $('#tr').html('');
+  $('#tr').append('<th style="width:20%">' + 'area' +  '</th>');
+  $('#tr').append('<th style="width:20%">' + 'estate' +  '</th>');
+  $('#tr').append('<th style="width:20%">' + 'lowestPrice' +  '</th>');
+  $('#tr').append('<th style="width:20%">' + 'highestPrice' +  '</th>');
+  $('#tr').append('<th style="width:20%">' + 'rating' +  '</th>');
+  $('#tr').append('<th style="width:20%">' + 'risk' +  '</th>'); 
+  
+        if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+                var val= data.val();
+                console.log(data.val());
+                var valKey = Object.keys(val);
+
+             data.forEach(function(daata){
+                  var vall = daata.val();
+                  //var liu = vall.location;
+                  console.log(vall.estate2);
+
+                   content +='<tr>';
+                //content += '<td>' + val+ '</td>';
+                content += '<td>' + vall.location+ '</td>';
+                content += '<td>' + vall.estate2+ '</td>';
+                content += '<td>' + vall.lowestPrice+ '</td>';
+                content += '<td>' + vall.highestPrice+ '</td>';
+                content += '<td>' + vall.rating+ '</td>';
+               content += '<td>' + vall.risk+ '</td>';
+                content += '</tr>';
+                  
+                });
+                
+        
+                
+                  //console.log(daata.val());
+                
+            });
+                  $('#tr').append(content);
+        }
+     
+});
+});
+});
+
+
+	</script>
+
+</head>
+
+
+
+
+
+
+
+<body>
+  <h1>Welcome to housingApp!</h1>
+
+ 
+
+  Area: <input id="areaBox" type="text" size="20"/>
+  Estate: <input id="estateBox" type="text" size="20"/>
+  <button id="readButton">Get profile</button>
+  <button id="allUsersButton">Get TABLE</button>
+
+  <div id="area"></div>
+    <div id="estate"></div>
+      <div id="lowPrice"></div>
+        <div id="highPrice"></div>
+          <div id="rating"></div>
+            <div id="risk"></div>
+  <img id="Image"></img>
+
+  <table style="width:100%" id="ex-table">
+  
+  <tr id="tr">
+
+ </table>
+
+  <hr/>
+  <div id="firebase">
+    <a href = "firebase.html"> data management </a>
+  </div>
+  </div>
+  <div id="status"></div>
+</body>
+</html>

@@ -18,19 +18,19 @@ const db = new sqlite3.Database('houses.db');
 //  which we don't want)
 db.serialize(() => {
   // create a new database table:
-  db.run("CREATE TABLE users_to_houses ( estate TXT, price TEXT, rating TEXT, risks TEXT, house TEXT)");
+  db.run("CREATE TABLE users_to_houses ( estate TXT, price TEXT, rating TEXT, risks TEXT, house TEXT, rateInt TEXT)");
 
   // insert 3 rows of data:
-  db.run("INSERT INTO users_to_houses VALUES ('Villas of Renaissance', '$ 1855-3800/mon', '3.5 Stars', '0.51-1.60 (High)', 'VoR.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('La Regencia', '$ 2000-3600/mon', '2.5 Stars', '0.51-1.60 (High)', 'LR.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('Regents Court', '$ 1900-3800/mon', '2.5 Stars', '0.51-1.60 (High)', 'RC.jpg')");
-  db.run("INSERT INTO users_to_houses VALUES ('Solazzo', '$ 2000-4000/mon', '2 Stars', '0.51-1.60 (High)', 'Solazzo.jpg')");
+  db.run("INSERT INTO users_to_houses VALUES ('Villas of Renaissance', '$ 1855-3800/mon', '3.5 Stars', '0.51-1.60 (High)', 'VoR.jpg', '3.5')");
+  db.run("INSERT INTO users_to_houses VALUES ('La Regencia', '$ 2000-3600/mon', '2.5 Stars', '0.51-1.60 (High)', 'LR.jpg', '2.5')");
+  db.run("INSERT INTO users_to_houses VALUES ('Regents Court', '$ 1900-3800/mon', '2.5 Stars', '0.51-1.60 (High)', 'RC.jpg', '2.5')");
+  db.run("INSERT INTO users_to_houses VALUES ('Solazzo', '$ 2000-4000/mon', '2 Stars', '0.51-1.60 (High)', 'Solazzo.jpg', '2')");
 
   console.log('successfully created the users_to_houses table in houses.db');
 
   // print them out to confirm their contents:
-  db.each("SELECT estate, price, rating, risks, house FROM users_to_houses", (err, row) => {
-      console.log( row.estate +": " + row.price +' - ' + row.rating +' - ' + row.risks +' - ' + row.house);
+  db.each("SELECT estate, price, rating, risks, house, rateInt FROM users_to_houses", (err, row) => {
+      console.log( row.estate +": " + row.price +' - ' + row.rating +' - ' + row.risks +' - ' + row.house + '-' + row.rateInt);
   });
 });
 
