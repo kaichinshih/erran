@@ -2,7 +2,7 @@ Screenshots of UI skeleton
 
 ![Page1](/public/MS5S1.PNG)
 (Above) Page 1 of the UI Skeleton
-![Page2](/public/MS4S2.PNG)
+![Page2](/public/MS5S2.PNG)
 (Above) Page 1 of the UI Skeleton with data filled
 ![Page2](/public/MS4S3.PNG)
 (Above) Page 3 of the UI Skeleton
