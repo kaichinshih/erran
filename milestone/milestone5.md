@@ -3,7 +3,9 @@ Screenshots of UI skeleton
 ![Page1](/public/MS5S1.PNG)
 (Above) Page 1 of the UI Skeleton
 ![Page2](/public/MS4S2.PNG)
-(Above) Page 2 of the UI Skeleton
+(Above) Page 1 of the UI Skeleton with data filled
+![Page2](/public/MS4S3.PNG)
+(Above) Page 3 of the UI Skeleton
 
 Our UI Skeleton has improved over Milestone4 as showed by the following features:
 1. We have decided to switch over to Firebase as it is easier to play with data with the databases.
