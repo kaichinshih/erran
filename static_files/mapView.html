@@ -1,0 +1,166 @@
+<html>
+  <head>
+    <title>MapView</title>
+<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
+    authDomain: "cogs121-w-c-s.firebaseapp.com",
+    databaseURL: "https://cogs121-w-c-s.firebaseio.com",
+    projectId: "cogs121-w-c-s",
+    storageBucket: "",
+    messagingSenderId: "502637431727"
+  };
+  firebase.initializeApp(config);
+</script>
+
+      <link href="/style.css" rel="stylesheet">
+     
+    <style>
+    
+      #map {
+        height: 100%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+    </style>
+
+
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      // This example creates circles on the map, representing populations in North
+      // America.
+
+      // First, create an object containing LatLng and population for each city.
+      var citymap = {
+        chicago: {
+          center: {lat: 32.878820, lng: -117.235953},
+          population: 1
+        },
+
+      };
+
+      function initMap() {
+        // Create the map.
+        var SSC = {lat: 32.878820, lng: -117.235953};
+        var GL = {lat:32.8812, lng: -117.2374};
+        var BS = {lat:32.8794, lng: -117.2369};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 17.1,
+          center: {lat: 32.8794, lng: -117.2363},
+          mapTypeId: google.maps.MapTypeId.HYBRID
+        });
+
+        map.setTilt(45);
+
+        // Construct the circle for each value in citymap.
+        // Note: We scale the area of the circle based on the population.
+        for (var city in citymap) {
+          // Add the circle for this city to the map.
+          var cityCircle = new google.maps.Circle({
+            strokeColor: '#ffa232',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#ffa232',
+            fillOpacity: 0.35,
+            map: map,
+            center: citymap[city].center,
+            radius: Math.sqrt(citymap[city].population) * 100
+          });
+
+                    var cityCircle2 = new google.maps.Circle({
+            strokeColor: '#ffa232',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#ffa232',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat:32.8812, lng: -117.2374},
+            radius: Math.sqrt(citymap[city].population) * 100
+          });
+
+                              var cityCircle3 = new google.maps.Circle({
+            strokeColor: '#ffa232',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#ffa232',
+            fillOpacity: 0.35,
+            map: map,
+            center: {lat:32.8794, lng: -117.2369},
+            radius: Math.sqrt(citymap[city].population) * 100
+          });
+
+          var contentString = 
+            '<h5>COGS120 Final Presentation</h5>';
+
+          var contentString1 = 
+            '<h5>COGS120 Group Meeting</h5>';
+
+           var contentString2 = 
+            '<h5>Buy CHEM book</h5>';
+
+            var infowindow = new google.maps.InfoWindow({
+          content: contentString,
+          maxWidth: 200
+        });
+
+          var infowindow1 = new google.maps.InfoWindow({
+          content: contentString1,
+          maxWidth: 200
+        });
+
+          var infowindow2 = new google.maps.InfoWindow({
+          content: contentString2,
+          maxWidth: 200
+        });
+
+          var marker = new google.maps.Marker({
+          position: SSC,
+          map: map,
+          title: 'SSC'
+        });
+
+          var marker1 = new google.maps.Marker({
+          position: GL,
+          map: map,
+          title: 'GL'
+        });
+
+           var marker2 = new google.maps.Marker({
+          position: BS,
+          map: map,
+          title: 'BS'
+        });
+
+          marker.addListener('click', function() {
+          infowindow.open(map, marker);
+        });
+
+          marker1.addListener('click', function() {
+          infowindow1.open(map, marker1);
+        });
+
+          marker2.addListener('click', function() {
+          infowindow2.open(map, marker2);
+        });
+
+        }
+      }
+
+       
+      
+
+    </script>
+
+
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBELtzTR-4_Hn8OkzWuLtaBGNaqVFzoQlc&callback=initMap">
+    </script>
+  
+    <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+  <script src="/js/bootstrap.min.js"></script>
+  
+  </body>
+</html>

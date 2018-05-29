@@ -46,11 +46,12 @@
       }
       if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
         $('#estate').html($('#estateBox').val());
-        $('#lowPrice').html(data.lowestPrice);
-        $('#highPrice').html(data.highestPrice);
-        $('#rating').html(data.rating);
-        $('#risk').html(data.risk);
+        $('#lowPrice').html("The lowest price is: "+ data.lowestPrice);
+        $('#highPrice').html("The highest price is: "+data.highestPrice);
+        $('#rating').html("The Yelp rating is: "+data.rating);
+        $('#risk').html("The earthquake risk is: "+data.risk);
         $('#Image').attr('src', data.image).attr('width', '300px');
+        $('#status').html('Your data is: ' + key);
       } else {
         // clear the display
        $('#estate').html('');
@@ -159,6 +160,7 @@ $('#allUsersButton').click(() => {
   <hr/>
   <div id="firebase">
     <a href = "firebase.html"> data management </a>
+    <a href = "mapNew.html"> map </a>
   </div>
   </div>
   <div id="status"></div>

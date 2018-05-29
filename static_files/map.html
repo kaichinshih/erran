@@ -1,0 +1,163 @@
+<html>
+<head>
+
+  <title>Map View</title>
+  <link href="/style.css" rel="stylesheet">
+
+  <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+  <script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
+    authDomain: "cogs121-w-c-s.firebaseapp.com",
+    databaseURL: "https://cogs121-w-c-s.firebaseio.com",
+    projectId: "cogs121-w-c-s",
+    storageBucket: "",
+    messagingSenderId: "502637431727"
+  };
+  firebase.initializeApp(config);
+</script>
+
+<style>
+
+  #map {
+    height: 100%;
+  }
+  /* Optional: Makes the sample page fill the window. */
+</style>
+
+<script src="jquery-3.3.1.min.js"></script>
+
+<script type="text/javascript">
+
+ $(document).ready(() => {
+
+  const database = firebase.database();
+
+
+
+
+
+  $('#readButton').click(() => {
+    const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
+    database.ref(key).once('value', (snapshot) => {
+
+      const data = snapshot.val();
+      console.log('You received some data!', data);
+      if (!data) {
+       alert("data is not found");
+       $('#status').html('Error: could not find user: ' + key);
+       return;
+     }
+
+     if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
+      $('#status').html('Your data is: ' + key);
+    } else {
+        // clear the display
+        alert("data is not found");
+        $('#status').html('Error: could not find user: ' + key);
+      }
+    });
+
+  });
+
+
+
+
+});
+
+
+
+
+</script>
+
+
+
+
+</head>
+<body>
+
+  Area: <input id="areaBox" type="text" size="20"/>
+  Estate: <input id="estateBox" type="text" size="20"/>
+  <button id="readButton">Get profile</button> 
+  <button id="allUsersButton">Get map</button>
+
+  <div id = "status"> </div>
+  <div id="map"></div>
+  <script>
+    function initMap() {
+
+      const database = firebase.database();
+
+      $('#allUsersButton').click(() => {
+
+        database.ref().once('value', function(snapshot){
+          console.log(snapshot.val()); 
+
+
+          var locArray = [];
+          if(snapshot.exists()){
+            snapshot.forEach(function(data){
+              var val= data.val();
+              var valKey = Object.keys(val);
+
+              data.forEach(function(daata){
+                var vall = daata.val();
+    
+                  var myLatLng = {lat: vall.lat, lng: vall.lng}; 
+                  locArray.push(myLatLng);
+                  
+
+                  var map = new google.maps.Map(document.getElementById('map'), {
+                    center: myLatLng,
+                    zoom: 15
+                  });
+
+                  var marker = new google.maps.Marker({
+                    map: map,
+                    position: myLatLng,
+                    title: vall.location + vall.estate2
+                  });
+                  var infowindow = new google.maps.InfoWindow({
+                    content: "<div style='float:left'><img src='#vall.image'></div><div style='float:right; padding: 10px;'><b>Title</b><br/>vall.location Address<br/> City,Country</div>",
+                    maxWidth: 200
+                  });
+                  marker.addListener('click', function() {
+                    infowindow.open(map, marker);
+                  });
+
+                
+                  locArray.push(myLatLng);
+                  console.log("lalal" + locArray);
+                });
+
+              
+            });
+          }
+
+        });
+
+      });
+
+      var center = {lat: 32.878820, lng: -117.235953};
+        // Create a map object and specify the DOM element
+        // for display.
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: center,
+          zoom: 15
+        });
+
+        // Create a marker and set its position.
+
+      }
+
+    </script>
+    <script async defer 
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBELtzTR-4_Hn8OkzWuLtaBGNaqVFzoQlc&callback=initMap">
+  </script>
+
+
+  <script src="https://code.jquery.com/jquery-3.2.1.js"></script>
+
+</body>
+</html>

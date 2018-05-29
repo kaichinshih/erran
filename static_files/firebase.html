@@ -26,14 +26,13 @@ $('#resetButton').click(()=> {
     console.log('resetting the database');
     database.ref('La Jolla/').remove();
     database.ref('Little Italy/').remove();
-    database.ref('A/').remove();
-    database.ref('La Jolla/ Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"La Jolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance"});
-    database.ref('La Jolla/ La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia"});
-
-    database.ref('Little Italy/ Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany"});
-    database.ref('Little Italy/ Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo"});
-      database.ref('A/B').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"A", estate2:"B"});
-    database.ref('A/C').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"A", estate2:"C"});
+    database.ref('Clairemont/').remove();
+    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"La Jolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+    database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
+    database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
+    database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
+      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
+    database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
     });
 
 
@@ -54,7 +53,9 @@ $('#resetButton').click(()=> {
       risk: $('#insertRiskBox').val(),
       image: $('#insertImageBox').val(),
       location : $('#insertLocationBox').val(),
-      estate2 : $('#insertEstate2Box').val()
+      estate2 : $('#insertEstate2Box').val(),
+      lat: $('#insertLatBox').val(),
+      lng:$('#insertLngBox').val(),
     });
   });
 
@@ -84,6 +85,8 @@ $('#resetButton').click(()=> {
   Location: <input id="insertLocationBox" type="text" size="20"/>
   Estate2: <input id="insertEstate2Box" type="text" size="20"/>
   Image: <input id="insertImageBox" type="text" size="20"/>
+  lat: <input id="insertLatBox" type="number" size="20"/>
+  lng:<input id="insertLngBox" type="number" size="20"/>
   <button id="insertButton">Insert into database</button>
 
   <hr/>
