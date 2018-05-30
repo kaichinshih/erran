@@ -147,13 +147,36 @@
 
 
 <body>
+
+
+  <header>
+      <h2> HousingTransparency </h2>
+  </header>
+
+    <nav>
+      <ul class="top-menu" id="top-menu">
+        <li><a onclick="location.href='mapNew.html'">MAP OF LISTINGS</a></li>
+        <li><a onclick="location.href='firebase.html'"> EDIT LISTINGS </a></li>
+    </div>
+      </ul>
+    </nav>
+
+
+
+  <div class="container">
+  <img  height="80%" width="100%" src="header.png" alt="header" style="opacity:0.85">
   <h1>Welcome to Housing Transparency!</h1>
+  <p>explore housing</p>
+   <img class="banner__scroll-down" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KICA8Zz4KICAgIDxwYXRoIGQ9Im0xMjEuMywzNC42Yy0xLjYtMS42LTQuMi0xLjYtNS44LDBsLTUxLDUxLjEtNTEuMS01MS4xYy0xLjYtMS42LTQuMi0xLjYtNS44LDAtMS42LDEuNi0xLjYsNC4yIDAsNS44bDUzLjksNTMuOWMwLjgsMC44IDEuOCwxLjIgMi45LDEuMiAxLDAgMi4xLTAuNCAyLjktMS4ybDUzLjktNTMuOWMxLjctMS42IDEuNy00LjIgMC4xLTUuOHoiIGZpbGw9IiNGRkZGRkYiLz4KICA8L2c+Cjwvc3ZnPgo=" />
 
+  </div>
+
+  <div class='wrap'>
   <p>Look up any available listings by typing in the area and estate names.</p>
-  Area: <input id="areaBox" type="text" size="20"/>
-  Estate: <input id="estateBox" type="text" size="20"/>
+  <input id="areaBox" type="text" size="20" placeholder="Area" />
+  <input id="estateBox" type="text" size="20" placeholder="Estate" />
   <button id="readButton">Get profile</button>
-
+  
   <div id="area"></div>
   <div id="estate"></div>
   <div id="priceRange"></div>
@@ -162,21 +185,17 @@
   <div id="risk"></div>
   <img id="Image"></img>
 
-  <hr/>
+  <p> or check all the available listings </p> 
+  <button id="allUsersButton">TABLE OF LISTINGS</button>
+  </div>
 
-  <p>Click on <b>Table of listings</b> to see a table of listings or <b>Map of listings</b> to see a map of all listings.</p>
-  <button id="allUsersButton">Table of listings</button>
-  <input type="button" onclick="location.href='mapNew.html';" value="Map of listings" /><button id="resetButton">Reset to default</button>
+
+  
   <table style="width:100%" id="ex-table">
 
     <tr id="tr">
 
     </table>
-
-    <div id="firebase">
-      <p>Know of any available estates that aren't listed? Add new listings by clicking on the <b>Add/ Edit/ Remove data</b> button!</p>
-      <input type="button" onclick="location.href='firebase.html';" value="Add/ Edit/ Remove data" />
-    </div>
   </div>
   <br>
   <div id="status"></div>
