@@ -27,7 +27,7 @@ $('#resetButton').click(()=> {
     database.ref('La Jolla/').remove();
     database.ref('Little Italy/').remove();
     database.ref('Clairemont/').remove();
-    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"La Jolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
     database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
     database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
     database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
@@ -74,7 +74,9 @@ $('#resetButton').click(()=> {
 
 <body>
 
-   <button id="resetButton">Reset database</button>
+  <input type="button" onclick="location.href='housingApp.html';" value="Return to home page" />
+  <input type="button" onclick="location.href='mapNew.html';" value="Return to map view" />
+  <button id="resetButton">Reset to default</button>
  <hr/>
   Area: <input id="insertAreaBox" type="text" size="20"/>
   Estate: <input id="insertEstateBox" type="text" size="20"/>
@@ -96,13 +98,5 @@ $('#resetButton').click(()=> {
 
   <hr/>
   <div id="status"></div>
-   <div id="back"> <a onclick = "goBack()"> cancel </a> </div>
-
 </body>
 </html>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
