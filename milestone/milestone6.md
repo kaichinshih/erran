@@ -1,6 +1,6 @@
 Screenshots of UI skeleton
 
-![Page1](/public/MS56S1.PNG)
+![Page1](/public/MS6S1.PNG)
 (Above) Page 1: Home Page
 ![Page2](/public/MS6S2.PNG)
 (Above) Page 1: Home Page with Data Displayed
