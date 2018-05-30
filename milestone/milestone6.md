@@ -15,4 +15,4 @@ Our UI Skeleton has improved over Milestone5 as showed by the following features
 3. We have re-designed the flow to make sure that the user experience is more seamless and straightforward.
 4. We have added a simple UI design
 
-Our data visualization can be seen in the third image from the top. Our map runs a loop to read all listing information in our database. It first reads the longitude and latitude information to display markers indicating the location of the listing. It then reads all other information and displays them in an infowindow.
+Our data visualization can be seen in the third image from the top. Our map runs a loop to read all listing information in our database. It first reads the longitude and latitude information to display markers indicating the location of the listing. It then reads all other information and displays them in an infowindow. The "on" function also allow real-time manipulation of the map; any changes to the database will immediately prompt the map to refresh.
