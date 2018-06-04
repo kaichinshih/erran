@@ -1,10 +1,20 @@
+<!--
+
+Web frontend for Housing Transparency editing page. This file allows user to edit/delete existing listings and add new listings to Firebase.
+
+Start ../server.js and then visit this URL to view this webpage:
+
+http://localhost:3000/firebase.html
+
+-->
+
 <html>
 <head>
-   <title>Housing Transparency - Edit Listing</title>
-  <link href="/style.css" rel="stylesheet">
+ <title>Housing Transparency - Edit Listing</title>
+ <link href="/style.css" rel="stylesheet">
 
-<script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
-<script>
+ <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
+ <script>
   // Initialize Firebase
   var config = {
     apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
@@ -20,103 +30,117 @@
 <script src="jquery-3.3.1.min.js"></script>
 
 <script type="text/javascript">
-$(document).ready(() => {
-     const database = firebase.database();
+  $(document).ready(() => {
+   const database = firebase.database();
 
-$('#resetButton').click(()=> {
-    console.log('resetting the database');
-    database.ref('La Jolla/').remove();
-    database.ref('Little Italy/').remove();
-    database.ref('Clairemont/').remove();
-    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
-    database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
-    database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
-    database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
-      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
-    database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+      // Resets Firebase to default mode
+      $('#resetButton').click(()=> {
+        console.log('resetting the database');
+        database.ref('La Jolla/').remove();
+        database.ref('Little Italy/').remove();
+        database.ref('Clairemont/').remove();
+        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
+        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
+        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
+        database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
+        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+      });
+
+      // Resets Firebase to default mode (same function as resetButton but for different parts of body)
+      $('#resetButton2').click(()=> {
+        console.log('resetting the database');
+        database.ref('La Jolla/').remove();
+        database.ref('Little Italy/').remove();
+        database.ref('Clairemont/').remove();
+        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
+        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
+        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
+        database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
+        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+        $('#status2').html('You have resetted the database');
+      });
+
+      // Takes in user inputted value to add a new listing to the database
+      $('#insertButton').click(() => {
+        const area = $('#insertAreaBox').val();
+        const estate = $('#insertEstateBox').val();
+        console.log('/' +area + '/'+ estate);
+        database.ref('/' +area + '/'+ estate).set({
+          lowestPrice: $('#insertLowestPriceBox').val(),
+          highestPrice: $('#insertHighestPriceBox').val(),
+          rating: $('#insertRatingBox').val(),
+          risk: $('#insertRiskBox').val(),
+          image: $('#insertImageBox').val(),
+          location : $('#insertAreaBox').val(),
+          estate2 : $('#insertEstateBox').val(),
+          lat: $('#insertLatBox').val(),
+          lng:$('#insertLngBox').val(),
+        });
+        $('#status').html('You have added ' + estate + ' in ' + area);
+      });
+
+      // Searches up input user entered to delete a listing from the database
+      $('#deleteButton').click(() => {
+        const area = $('#deleteAreaBox').val();
+        const estate = $('#deleteEstateBox').val();
+        console.log('/' + area + '/' + estate);
+        database.ref('/' + area + '/' + estate).remove();
+        if (!estate) {
+          $('#status1').html('You have cleared listings in ' + area);
+        } else {
+          $('#status1').html('You have deleted ' + estate + ' in ' + area);
+        }
+      });
+
     });
-
-
-
-
- $('#insertButton').click(() => {
-    const area = $('#insertAreaBox').val();
-    const estate = $('#insertEstateBox').val();
-    //const lowPrice = $('#insertLowestPriceBox').val();
-    //const highPrice = $('#insertHighestPriceBox').val();
-    //const rating = $('#insertRatingBox').val();
-    //const risk = $('#insertRiskBox').val();
-    console.log('/' +area + '/'+ estate);
-    database.ref('/' +area + '/'+ estate).set({
-      lowestPrice: $('#insertLowestPriceBox').val(),
-      highestPrice: $('#insertHighestPriceBox').val(),
-      rating: $('#insertRatingBox').val(),
-      risk: $('#insertRiskBox').val(),
-      image: $('#insertImageBox').val(),
-      location : $('#insertLocationBox').val(),
-      estate2 : $('#insertEstate2Box').val(),
-      lat: $('#insertLatBox').val(),
-      lng:$('#insertLngBox').val(),
-    });
-  });
-
-
-
-       $('#deleteButton').click(() => {
-    const area = $('#deleteAreaBox').val();
-      const estate = $('#deleteEstateBox').val();
-      console.log('/' + area + '/' + estate);
-    database.ref('/' + area + '/' + estate).remove();
-    
-  });
-
-});
-</script>
+  </script>
+</head>
 
 <body>
-<header>
-      <h2 onclick="location.href='housingApp.html'"> HousingTransparency </h2>
+  <header>
+    <h2 onclick="location.href='housingApp.html'"> HousingTransparency </h2>
   </header>
 
-    <nav>
-      <ul class="top-menu" id="top-menu">
-        <li><a onclick="location.href='mapNew.html'">MAP OF LISTINGS</a></li>
-        <li><a onclick="location.href='housingApp.html'"> HOME PAGE </a></li>
-    </div>
-      </ul>
-    </nav>
+  <nav>
+    <ul class="top-menu" id="top-menu">
+      <li><a onclick="location.href='mapNew.html'">MAP OF LISTINGS</a></li>
+      <li><a id="resetButton">RESET DATA</a></li>
+      <li><a onclick="location.href='housingApp.html'"> HOME PAGE </a></li>
+    </ul>
+  </nav>
 
   <div class="container">
-  <img  height="80%" width="100%" src="header.png" alt="header" style="opacity:0.85">
-  <h1>Add, Edit, Remove Listings</h1>
-   <img class="banner__scroll-down" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KICA8Zz4KICAgIDxwYXRoIGQ9Im0xMjEuMywzNC42Yy0xLjYtMS42LTQuMi0xLjYtNS44LDBsLTUxLDUxLjEtNTEuMS01MS4xYy0xLjYtMS42LTQuMi0xLjYtNS44LDAtMS42LDEuNi0xLjYsNC4yIDAsNS44bDUzLjksNTMuOWMwLjgsMC44IDEuOCwxLjIgMi45LDEuMiAxLDAgMi4xLTAuNCAyLjktMS4ybDUzLjktNTMuOWMxLjctMS42IDEuNy00LjIgMC4xLTUuOHoiIGZpbGw9IiNGRkZGRkYiLz4KICA8L2c+Cjwvc3ZnPgo=" />
+    <img  height="80%" width="100%" src="header.png" alt="header" style="opacity:0.85">
+    <h1>Add, Edit, Remove Listings</h1>
+    <img class="banner__scroll-down" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KICA8Zz4KICAgIDxwYXRoIGQ9Im0xMjEuMywzNC42Yy0xLjYtMS42LTQuMi0xLjYtNS44LDBsLTUxLDUxLjEtNTEuMS01MS4xYy0xLjYtMS42LTQuMi0xLjYtNS44LDAtMS42LDEuNi0xLjYsNC4yIDAsNS44bDUzLjksNTMuOWMwLjgsMC44IDEuOCwxLjIgMi45LDEuMiAxLDAgMi4xLTAuNCAyLjktMS4ybDUzLjktNTMuOWMxLjctMS42IDEuNy00LjIgMC4xLTUuOHoiIGZpbGw9IiNGRkZGRkYiLz4KICA8L2c+Cjwvc3ZnPgo=" />
 
   </div>
 
   <div class='wrap'>
 
-  <p>insert a listing into databse</p>
-  <input id="insertAreaBox" type="text" size="20" placeholder="Area"/>
-  <input id="insertEstateBox" type="text" size="20" placeholder="Estate"/>
-  <input id="insertLowestPriceBox" type="text" size="20" placeholder="Estate"/>
-  <input id="insertHighestPriceBox" type="text" size="20" placeholder="LowestPrice"/>
-  <input id="insertRatingBox" type="text" size="20"/ placeholder="Rating">
-  <input id="insertRiskBox" type="text" size="20"/ placeholder="Risk">
-  <input id="insertLocationBox" type="text" size="20"/ placeholder="Location">
-  <input id="insertEstate2Box" type="text" size="20"/ placeholder="Estate2">
-  <input id="insertImageBox" type="text" size="20"/ placeholder="Image">
-  <input id="insertLatBox" type="number" size="20"/ placeholder="lat">
-  <input id="insertLngBox" type="number" size="20"/ placeholder="lng">
-  <button id="insertButton">Insert</button>
+    <p>Add your own listing</p>
+    <input id="insertAreaBox" type="text" size="20" placeholder="Area"/>
+    <input id="insertEstateBox" type="text" size="20" placeholder="Estate"/>
+    <input id="insertLowestPriceBox" type="text" size="20" placeholder="Lowest Price"/>
+    <input id="insertHighestPriceBox" type="text" size="20" placeholder="Highest Price"/>
+    <input id="insertRatingBox" type="text" size="20"/ placeholder="Rating">
+    <input id="insertRiskBox" type="text" size="20"/ placeholder="Risk">
+    <input id="insertImageBox" type="text" size="20"/ placeholder="Image">
+    <input id="insertLatBox" type="number" size="20"/ placeholder="Latitude">
+    <input id="insertLngBox" type="number" size="20"/ placeholder="Longitude">
+    <button id="insertButton">Insert</button>
+    <div id="status"></div>
 
-  <p>or delete a listing</p>
-  <input id="deleteAreaBox" type="text" size="20" placeholder="Area"/>
-  <input id="deleteEstateBox" type="text" size="20" placeholder="Estate"/>
-  <button id="deleteButton">Delete</button>
+    <p>Or delete an existing listing</p>
+    <input id="deleteAreaBox" type="text" size="20" placeholder="Area"/>
+    <input id="deleteEstateBox" type="text" size="20" placeholder="Estate"/>
+    <button id="deleteButton">Delete</button>
+    <div id="status1"></div>
 
-  <p>reset your data to default</p>
-  <button id="resetButton">Reset</button>
-
-  <div id="status"></div>
-</body>
-</html>
+    <p>Or reset the database to default</p>
+    <button id="resetButton2">Reset</button>
+    <div id="status2"></div>
+  </body>
+  </html>

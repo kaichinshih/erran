@@ -1,3 +1,13 @@
+<!--
+
+Web frontend for Housing Transparency editing page. This file allows user to visualize listings in the database on Google Maps.
+
+Start ../server.js and then visit this URL to view this webpage:
+
+http://localhost:3000/mapNew.html
+
+-->
+
 <html>
 <head>
 
@@ -6,180 +16,161 @@
 
   <script src="https://www.gstatic.com/firebasejs/5.0.2/firebase.js"></script>
   <script>
-  // Initialize Firebase
-  var config = {
-    apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
-    authDomain: "cogs121-w-c-s.firebaseapp.com",
-    databaseURL: "https://cogs121-w-c-s.firebaseio.com",
-    projectId: "cogs121-w-c-s",
-    storageBucket: "",
-    messagingSenderId: "502637431727"
-  };
-  firebase.initializeApp(config);
-</script>
+    var config = {
+      apiKey: "AIzaSyBsnkZUolaSp6Y68kpU579Ok9nsTgbqVyU",
+      authDomain: "cogs121-w-c-s.firebaseapp.com",
+      databaseURL: "https://cogs121-w-c-s.firebaseio.com",
+      projectId: "cogs121-w-c-s",
+      storageBucket: "",
+      messagingSenderId: "502637431727"
+    };
+    firebase.initializeApp(config);
+  </script>
 
-<style>
+  <style>
 
-  #map {
-    height: 100%;
-  }
-  
-</style>
+    #map {
+      height: 100%;
+    }
 
-<script src="jquery-3.3.1.min.js"></script>
+  </style>
 
-<script type="text/javascript">
+  <script src="jquery-3.3.1.min.js"></script>
 
- $(document).ready(() => {
+  <script type="text/javascript">
 
-  const database = firebase.database();
+  $(document).ready(() => {
+    const database = firebase.database();
+    $('#readButton').click(() => {
+      const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
+      database.ref(key).on('value', (snapshot) => {
 
+        const data = snapshot.val();
+        console.log('You received some data!', data);
+        if (!data) {
+         alert("data is not found");
+         $('#status').html('Error: could not find user: ' + key);
+         return;
+       }
 
-
-
-
-  $('#readButton').click(() => {
-    const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
-    database.ref(key).on('value', (snapshot) => {
-
-      const data = snapshot.val();
-      console.log('You received some data!', data);
-      if (!data) {
-       alert("data is not found");
-       $('#status').html('Error: could not find user: ' + key);
-       return;
-     }
-
-     if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
-      $('#status').html('Your data is: ' + key);
-    } else {
-        // clear the display
+       if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
+        $('#status').html('Your data is: ' + key);
+      } else {
         alert("data is not found");
         $('#status').html('Error: could not find user: ' + key);
       }
     });
 
-  });
-
-  $('#resetButton').click(()=> {
-    console.log('resetting the database');
-    database.ref('La Jolla/').remove();
-    database.ref('Little Italy/').remove();
-    database.ref('Clairemont/').remove();
-    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
-    database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
-    database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
-    database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
-      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
-    database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
     });
 
-
-
-
-});
-
-
-
-
-</script>
-
-
-
-
+    $('#resetButton').click(()=> {
+      console.log('resetting the database');
+      database.ref('La Jolla/').remove();
+      database.ref('Little Italy/').remove();
+      database.ref('Clairemont/').remove();
+      database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+      database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
+      database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
+      database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
+      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
+      database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+    });
+  });
+  </script>
 </head>
+
 <body>
-<header>
-      <h2 onclick="location.href='housingApp.html'"> HousingTransparency </h2>
+  <header>
+    <h2 onclick="location.href='housingApp.html'"> HousingTransparency </h2>
   </header>
 
-    <nav>
-      <ul class="top-menu" id="top-menu">
-        <li><a onclick="location.href='firebase.html'"> EDIT LISTINGS </a></li>
-        <li><a onclick="location.href='housingApp.html'"> HOME PAGE </a></li>
-        <li><a id="resetButton">RESET DATA</a></li>
+  <nav>
+    <ul class="top-menu" id="top-menu">
+      <li><a onclick="location.href='firebase.html'"> EDIT LISTINGS </a></li>
+      <li><a id="resetButton">RESET DATA</a></li>
+      <li><a onclick="location.href='housingApp.html'"> HOME PAGE </a></li>
     </div>
-      </ul>
-    </nav>
-  <div id="map"></div>
-  <script>
-    function initMap() {
+  </ul>
+</nav>
+<div id="map"></div>
+<script>
+  function initMap() {
 
-      const database = firebase.database();
-
-
-      database.ref().on('value', function(snapshot){
+    const database = firebase.database();
 
 
-        var locArray = [];
-        var markers = [];
-        if(snapshot.exists()){
-          snapshot.forEach(function(data){
-            var val= data.val();
-            var valKey = Object.keys(val);
+    database.ref().on('value', function(snapshot){
 
-            data.forEach(function(daata){
-              var vall = daata.val();
-              var latNum = Number(vall.lat);
-              var lngNum = Number(vall.lng);
-              var myLatLng = {lat: latNum, lng: lngNum}; 
-              locArray.push(myLatLng);
 
-              var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: 32.713918, lng: -117.159446},
-                zoom: 11
-              });
+      var locArray = [];
+      var markers = [];
+      if(snapshot.exists()){
+        snapshot.forEach(function(data){
+          var val= data.val();
+          var valKey = Object.keys(val);
 
-              var marker = new google.maps.Marker({
-                map: map,
-                position: myLatLng,
-                title: vall.location + vall.estate2
-              });
+          data.forEach(function(daata){
+            var vall = daata.val();
+            var latNum = Number(vall.lat);
+            var lngNum = Number(vall.lng);
+            var myLatLng = {lat: latNum, lng: lngNum}; 
+            locArray.push(myLatLng);
 
-              markers.push(marker);
-
-              for (var i = 0; i < markers.length; i++) {
-               markers[i].setMap(map);
-             };
-
-             var contentString = '<div>' + 
-             '<img src="' +
-             vall.image +
-             '" width="200">' + 
-             '</div>' + 
-             '<h2 style="text-transform:uppercase">'+
-             vall.estate2 +
-             '</h2>' +
-             '<h3>'+
-             vall.location +
-             '</h3>' +
-             '<div> Price range: ' +
-             vall.lowestPrice + 
-             "~" + 
-             vall.highestPrice +
-             '</div>' +
-             '<div> Yelp rating: ' +
-             vall.rating +
-             '</div>' +
-             '<div> Earthquake risk: ' +
-             vall.risk +
-             '</div>'
-
-             var infowindow = new google.maps.InfoWindow({
-              content: contentString
+            var map = new google.maps.Map(document.getElementById('map'), {
+              center: {lat: 32.713918, lng: -117.159446},
+              zoom: 11
             });
 
-             marker.addListener('click', function() {
-              infowindow.open(map, marker);
+            var marker = new google.maps.Marker({
+              map: map,
+              position: myLatLng,
+              title: vall.location + vall.estate2
             });
 
-           });
+            markers.push(marker);
 
+            for (var i = 0; i < markers.length; i++) {
+             markers[i].setMap(map);
+           };
 
+           var contentString = '<div>' + 
+           '<img src="' +
+           vall.image +
+           '" width="200">' + 
+           '</div>' + 
+           '<h2 style="text-transform:uppercase">'+
+           vall.estate2 +
+           '</h2>' +
+           '<h3>'+
+           vall.location +
+           '</h3>' +
+           '<div> Price range: ' +
+           vall.lowestPrice + 
+           "~" + 
+           vall.highestPrice +
+           '</div>' +
+           '<div> Yelp rating: ' +
+           vall.rating +
+           '</div>' +
+           '<div> Earthquake risk: ' +
+           vall.risk +
+           '</div>'
+
+           var infowindow = new google.maps.InfoWindow({
+            content: contentString
           });
-        }
 
-      });
+           marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+
+         });
+
+
+        });
+      }
+
+    });
 
 
         // Create a marker and set its position.

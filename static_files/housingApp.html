@@ -1,3 +1,13 @@
+<!--
+
+Web frontend for Housing Transparency home page. This file allows user to look up a table of existing listings or search any specific listing from the table.
+
+Start ../server.js and then visit this URL to view this webpage:
+
+http://localhost:3000/housingApp.html
+
+-->
+
 <html>
 <head>
 
@@ -26,79 +36,68 @@
       //database
       const database = firebase.database();
 
-
+      // Read button allows user to view the information of any specific listing.
       $('#readButton').click(() => {
         const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
-    // 'once' reads the value once from the database
-    database.ref(key).on('value', (snapshot) => {
-      const data = snapshot.val();
-      console.log('You received some data!', data);
-      if (!data) {
-        // clear the display
-        $('#estate').html('');
-        $('#priceRange').html('');
-        $('#highPrice').html('');
-        $('#rating').html('');
-        $('#risk').html('');
-        $('#Image').attr('src', '').attr('width', '0px');
-        $('#status').html('Error: could not find user: ' + key);
-        return;
-      }
-      if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
-        $('#estate').html($('#estateBox').val());
-        $('#priceRange').html("Price range: $"+ data.lowestPrice + "~$" + data.highestPrice);
-        $('#rating').html("Yelp rating: "+data.rating);
-        $('#risk').html("Earthquake risk: "+data.risk);
-        $('#Image').attr('src', data.image).attr('width', '300px');
-        $('#status').html('Currently displaying: ' + key);
-      } else {
-        // clear the display
-        $('#estate').html('');
-        $('#priceRange').html('');
-        $('#highPrice').html('');
-        $('#rating').html('');
-        $('#risk').html('');
-        $('#Image').attr('src', '').attr('width', '0px');
-      }
-    });
-  });
+        database.ref(key).on('value', (snapshot) => {
+          const data = snapshot.val();
+          console.log('You received some data!', data);
+          // input invalid; empty the display box
+          if (!data) {
+            $('#estate').html('');
+            $('#priceRange').html('');
+            $('#highPrice').html('');
+            $('#rating').html('');
+            $('#risk').html('');
+            $('#Image').attr('src', '').attr('width', '0px');
+            $('#status').html('Error: could not find user: ' + key);
+            return;
+          }
+          // input found; display info in display box
+          if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
+            $('#estate').html($('#estateBox').val());
+            $('#priceRange').html("Price range: $"+ data.lowestPrice + "~$" + data.highestPrice);
+            $('#rating').html("Yelp rating: "+data.rating);
+            $('#risk').html("Earthquake risk: "+data.risk);
+            $('#Image').attr('src', data.image).attr('width', '300px');
+            $('#status').html('Currently displaying: ' + key);
+          } else {
+            // no input; empty display box
+            $('#estate').html('');
+            $('#priceRange').html('');
+            $('#highPrice').html('');
+            $('#rating').html('');
+            $('#risk').html('');
+            $('#Image').attr('src', '').attr('width', '0px');
+          }
+        });
+      });
 
-
-
-
-
-
-
-
-
-
+      // All users button allows user to view a table of all existing listing
       $('#allUsersButton').click(() => {
-  //var introBar = document.getElementById("tr")[0];
-  //introBar.style.display = 'block';
-  database.ref().on('value', function(snapshot){
-    console.log(snapshot.val());
-    $('#tr').html('');
-    $('#tr').append('<th style="width:20%">' + 'area' +  '</th>');
-    $('#tr').append('<th style="width:20%">' + 'estate' +  '</th>');
-    $('#tr').append('<th style="width:20%">' + 'lowestPrice' +  '</th>');
-    $('#tr').append('<th style="width:20%">' + 'highestPrice' +  '</th>');
-    $('#tr').append('<th style="width:20%">' + 'rating' +  '</th>');
-    $('#tr').append('<th style="width:20%">' + 'risk' +  '</th>'); 
+        database.ref().on('value', function(snapshot){
+          console.log(snapshot.val());
+          // initializes the table
+          $('#tr').html('');
+          $('#tr').append('<th style="width:27%">' + 'Area' +  '</th>');
+          $('#tr').append('<th style="width:27%">' + 'Neighborhood' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Lowest Price' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Howest Rrice' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Yelp Rating' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Earthquake Risks' +  '</th>'); 
+          // fills the table with data from Firebase
+          if(snapshot.exists()){
+            var content = '';
+            snapshot.forEach(function(data){
+              var val= data.val();
+              console.log(data.val());
+              var valKey = Object.keys(val);
 
-    if(snapshot.exists()){
-      var content = '';
-      snapshot.forEach(function(data){
-        var val= data.val();
-        console.log(data.val());
-        var valKey = Object.keys(val);
+              data.forEach(function(daata){
+                var vall = daata.val();
+                console.log(vall.estate2);
 
-        data.forEach(function(daata){
-          var vall = daata.val();
-                  //var liu = vall.location;
-                  console.log(vall.estate2);
-
-                  content +='<tr>';
-                //content += '<td>' + val+ '</td>';
+                content +='<tr>';
                 content += '<td>' + vall.location+ '</td>';
                 content += '<td>' + vall.estate2+ '</td>';
                 content += '<td>' + vall.lowestPrice+ '</td>';
@@ -108,30 +107,26 @@
                 content += '</tr>';
 
               });
+            });
+            $('#tr').append(content);
+          }
 
-        
+        });
+      });
 
-                  //console.log(daata.val());
-
-                });
-      $('#tr').append(content);
-    }
-
-  });
-});
-
-        $('#resetButton').click(()=> {
-    console.log('resetting the database');
-    database.ref('La Jolla/').remove();
-    database.ref('Little Italy/').remove();
-    database.ref('Clairemont/').remove();
-    database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
-    database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
-    database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
-    database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
-      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
-    database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
-    });
+      // Resets Firebase to default mode
+      $('#resetButton').click(()=> {
+        console.log('resetting the database');
+        database.ref('La Jolla/').remove();
+        database.ref('Little Italy/').remove();
+        database.ref('Clairemont/').remove();
+        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
+        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
+        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
+        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
+        database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
+        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+      });
 
     });
 
@@ -150,28 +145,29 @@
 
 
   <header>
-      <h2> HousingTransparency </h2>
+    <h2> HousingTransparency </h2>
   </header>
 
-    <nav>
-      <ul class="top-menu" id="top-menu">
-        <li><a onclick="location.href='mapNew.html'">MAP OF LISTINGS</a></li>
-        <li><a onclick="location.href='firebase.html'"> EDIT LISTINGS </a></li>
+  <nav>
+    <ul class="top-menu" id="top-menu">
+      <li><a onclick="location.href='mapNew.html'">MAP OF LISTINGS</a></li>
+      <li><a onclick="location.href='firebase.html'"> EDIT LISTINGS </a></li>
+      <li><a id="resetButton">RESET DATA</a></li>
     </div>
-      </ul>
-    </nav>
+  </ul>
+</nav>
 
 
 
-  <div class="container">
+<div class="container">
   <img  height="80%" width="100%" src="header.png" alt="header" style="opacity:0.85">
   <h1>Welcome to Housing Transparency!</h1>
   <p>explore housing</p>
-   <img class="banner__scroll-down" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KICA8Zz4KICAgIDxwYXRoIGQ9Im0xMjEuMywzNC42Yy0xLjYtMS42LTQuMi0xLjYtNS44LDBsLTUxLDUxLjEtNTEuMS01MS4xYy0xLjYtMS42LTQuMi0xLjYtNS44LDAtMS42LDEuNi0xLjYsNC4yIDAsNS44bDUzLjksNTMuOWMwLjgsMC44IDEuOCwxLjIgMi45LDEuMiAxLDAgMi4xLTAuNCAyLjktMS4ybDUzLjktNTMuOWMxLjctMS42IDEuNy00LjIgMC4xLTUuOHoiIGZpbGw9IiNGRkZGRkYiLz4KICA8L2c+Cjwvc3ZnPgo=" />
+  <img class="banner__scroll-down" src="data:image/svg+xml;utf8;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIHZpZXdCb3g9IjAgMCAxMjkgMTI5IiBlbmFibGUtYmFja2dyb3VuZD0ibmV3IDAgMCAxMjkgMTI5IiB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4Ij4KICA8Zz4KICAgIDxwYXRoIGQ9Im0xMjEuMywzNC42Yy0xLjYtMS42LTQuMi0xLjYtNS44LDBsLTUxLDUxLjEtNTEuMS01MS4xYy0xLjYtMS42LTQuMi0xLjYtNS44LDAtMS42LDEuNi0xLjYsNC4yIDAsNS44bDUzLjksNTMuOWMwLjgsMC44IDEuOCwxLjIgMi45LDEuMiAxLDAgMi4xLTAuNCAyLjktMS4ybDUzLjktNTMuOWMxLjctMS42IDEuNy00LjIgMC4xLTUuOHoiIGZpbGw9IiNGRkZGRkYiLz4KICA8L2c+Cjwvc3ZnPgo=" />
 
-  </div>
+</div>
 
-  <div class='wrap'>
+<div class='wrap'>
   <p>Look up any available listings by typing in the area and estate names.</p>
   <input id="areaBox" type="text" size="20" placeholder="Area" />
   <input id="estateBox" type="text" size="20" placeholder="Estate" />
@@ -184,20 +180,14 @@
   <div id="rating"></div>
   <div id="risk"></div>
   <img id="Image"></img>
-
-  <p> or check all the available listings </p> 
-  <button id="allUsersButton">TABLE OF LISTINGS</button>
-  </div>
-
-
   
+  <p> or check all the available listings </p> 
   <table style="width:100%" id="ex-table">
-
-    <tr id="tr">
-
-    </table>
-  </div>
-  <br>
-  <div id="status"></div>
+  <tr id="tr">
+  </table>
+  <button id="allUsersButton">Table of Listings</button>
+</div>
+<br>
+<div id="status"></div>
 </body>
 </html>
