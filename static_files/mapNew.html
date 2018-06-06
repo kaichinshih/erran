@@ -41,40 +41,25 @@ http://localhost:3000/mapNew.html
 
   $(document).ready(() => {
     const database = firebase.database();
-    $('#readButton').click(() => {
-      const key = '/' +  $('#areaBox').val()+ '/' + $('#estateBox').val();
-      database.ref(key).on('value', (snapshot) => {
 
-        const data = snapshot.val();
-        console.log('You received some data!', data);
-        if (!data) {
-         alert("data is not found");
-         $('#status').html('Error: could not find user: ' + key);
-         return;
-       }
+    //resets database to default listing
+      $('#resetButton').click(()=> {
+        console.log('resetting the database');
+        database.ref('La Jolla/').remove();
+        database.ref('Little Italy/').remove();
+        database.ref('Clairemont/').remove();
+        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"0.51-1.60 (High)", image:"VoR.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863", liq: "No"});
+        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"0.51-1.60 (High)", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298", liq: "No"});
+        database.ref('La Jolla/La Scala').set({lowestPrice:"1670", highestPrice: "1975", rating: "3", risk:"0.51-1.60 (High)", image:"LS.jpg", location:"La Jolla", estate2: "La Scala", lat: "32.867878", lng: "-117.223761", liq: "No"});
+        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2859", highestPrice: "3269", rating: "3.5", risk:"0.51-1.60 (High)",image:"Camden.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368", liq: "Yes"});
+        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "4", risk:"0.51-1.60 (High)",image:"IP.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563", liq: "Yes"});
+        database.ref('Clairemont/The Stratton').set({lowestPrice:"1475", highestPrice: "2880", rating: "1.5", risk:"0.51-1.60 (High)", image:"Stratton.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610", liq: "No"});
+        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"1995", highestPrice: "2400", rating: "2.5", risk:"0.51-1.60 (High)", image:"PS.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570", liq: "No"});
+        database.ref('Mission Valley/Aquatera').set({lowestPrice:"2290", highestPrice: "3495", rating: "4", risk:"0.51-1.60 (High)", image:"Aquatera.jpg", location:"Mission Valley", estate2:"Aquatera", lat: "32.778716", lng: "-117.153517", liq: "Yes"});
+        database.ref('National City/Southern Highlands').set({lowestPrice:"995", highestPrice: "1195", rating: "1.5", risk:"0.18-0.50 (Low)", image:"SH.jpg", location:"National City", estate2:"Southern Highlands", lat: "32.663210", lng: "-117.092401", liq: "Yes"});
+        database.ref('Otay/Southgate Village').set({lowestPrice:"1325", highestPrice: "1700", rating: "1", risk:"0.18-0.50 (Low)", image:"SG.jpg", location:"Otay", estate2:"Southgate Village", lat: "32.580853", lng: "-117.063458", liq: "Yes"});
+      });
 
-       if (data.lowestPrice&& data.highestPrice&&data.rating&&data.risk&&data.image) {
-        $('#status').html('Your data is: ' + key);
-      } else {
-        alert("data is not found");
-        $('#status').html('Error: could not find user: ' + key);
-      }
-    });
-
-    });
-
-    $('#resetButton').click(()=> {
-      console.log('resetting the database');
-      database.ref('La Jolla/').remove();
-      database.ref('Little Italy/').remove();
-      database.ref('Clairemont/').remove();
-      database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
-      database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
-      database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
-      database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
-      database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
-      database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
-    });
   });
   </script>
 </head>
@@ -108,31 +93,31 @@ http://localhost:3000/mapNew.html
         snapshot.forEach(function(data){
           var val= data.val();
           var valKey = Object.keys(val);
-
+          // loop to ensure that each and every listing is on the map
           data.forEach(function(daata){
             var vall = daata.val();
             var latNum = Number(vall.lat);
             var lngNum = Number(vall.lng);
             var myLatLng = {lat: latNum, lng: lngNum}; 
             locArray.push(myLatLng);
-
+            // initializes Google Maps and sets center location and zoom in value
             var map = new google.maps.Map(document.getElementById('map'), {
               center: {lat: 32.713918, lng: -117.159446},
               zoom: 11
             });
-
+            // sets marker of the listing on the map
             var marker = new google.maps.Marker({
               map: map,
               position: myLatLng,
               title: vall.location + vall.estate2
             });
-
+            // pushes each marker onto map array
             markers.push(marker);
-
             for (var i = 0; i < markers.length; i++) {
              markers[i].setMap(map);
            };
 
+           // sets info window for each listing
            var contentString = '<div>' + 
            '<img src="' +
            vall.image +
@@ -154,6 +139,9 @@ http://localhost:3000/mapNew.html
            '</div>' +
            '<div> Earthquake risk: ' +
            vall.risk +
+           '</div>' +
+           '<div> Liquefaction risk: ' +
+           vall.liq +
            '</div>'
 
            var infowindow = new google.maps.InfoWindow({
@@ -171,9 +159,6 @@ http://localhost:3000/mapNew.html
       }
 
     });
-
-
-        // Create a marker and set its position.
 
       }
 

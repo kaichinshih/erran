@@ -49,6 +49,7 @@ http://localhost:3000/housingApp.html
             $('#highPrice').html('');
             $('#rating').html('');
             $('#risk').html('');
+            $('#liq').html('');
             $('#Image').attr('src', '').attr('width', '0px');
             $('#status').html('Error: could not find user: ' + key);
             return;
@@ -59,6 +60,7 @@ http://localhost:3000/housingApp.html
             $('#priceRange').html("Price range: $"+ data.lowestPrice + "~$" + data.highestPrice);
             $('#rating').html("Yelp rating: "+data.rating);
             $('#risk').html("Earthquake risk: "+data.risk);
+            $('#liq').html("Liquefaction risk: "+data.liq);
             $('#Image').attr('src', data.image).attr('width', '300px');
             $('#status').html('Currently displaying: ' + key);
           } else {
@@ -68,6 +70,7 @@ http://localhost:3000/housingApp.html
             $('#highPrice').html('');
             $('#rating').html('');
             $('#risk').html('');
+            $('#liq').html('');
             $('#Image').attr('src', '').attr('width', '0px');
           }
         });
@@ -79,12 +82,13 @@ http://localhost:3000/housingApp.html
           console.log(snapshot.val());
           // initializes the table
           $('#tr').html('');
-          $('#tr').append('<th style="width:27%">' + 'Area' +  '</th>');
-          $('#tr').append('<th style="width:27%">' + 'Neighborhood' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Area' +  '</th>');
+          $('#tr').append('<th style="width:15%">' + 'Neighborhood' +  '</th>');
           $('#tr').append('<th style="width:15%">' + 'Lowest Price' +  '</th>');
           $('#tr').append('<th style="width:15%">' + 'Howest Rrice' +  '</th>');
           $('#tr').append('<th style="width:15%">' + 'Yelp Rating' +  '</th>');
           $('#tr').append('<th style="width:15%">' + 'Earthquake Risks' +  '</th>'); 
+          $('#tr').append('<th style="width:15%">' + 'Liquefaction Risks' +  '</th>'); 
           // fills the table with data from Firebase
           if(snapshot.exists()){
             var content = '';
@@ -104,6 +108,7 @@ http://localhost:3000/housingApp.html
                 content += '<td>' + vall.highestPrice+ '</td>';
                 content += '<td>' + vall.rating+ '</td>';
                 content += '<td>' + vall.risk+ '</td>';
+                content += '<td>' + vall.liq+ '</td>';
                 content += '</tr>';
 
               });
@@ -120,12 +125,16 @@ http://localhost:3000/housingApp.html
         database.ref('La Jolla/').remove();
         database.ref('Little Italy/').remove();
         database.ref('Clairemont/').remove();
-        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"low", image:"LaJolla.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863"});
-        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298"});
-        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2139", highestPrice: "5349", rating: "2.5", risk:"high",image:"Solazzo.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368"});
-        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "3.5", risk:"low",image:"RC.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563"});
-        database.ref('Clairemont/The Stratton').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610"});
-        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"high", image:"OceanSide.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570"});
+        database.ref('La Jolla/Villas of Renaissance').set({lowestPrice:"1855", highestPrice: "3800", rating: "3.5", risk:"0.51-1.60 (High)", image:"VoR.jpg", location:"La Jolla", estate2: "Villas of Renaissance", lat: "32.869468", lng: "-117.203863", liq: "No"});
+        database.ref('La Jolla/La Regencia').set({lowestPrice:"2000", highestPrice: "3600", rating: "2.5", risk:"0.51-1.60 (High)", image:"LR.jpg", location:"La Jolla", estate2: "La Regencia", lat: "32.863263", lng: "-117.223298", liq: "No"});
+        database.ref('La Jolla/La Scala').set({lowestPrice:"1670", highestPrice: "1975", rating: "3", risk:"0.51-1.60 (High)", image:"LS.jpg", location:"La Jolla", estate2: "La Scala", lat: "32.867878", lng: "-117.223761", liq: "No"});
+        database.ref('Little Italy/Camden Tuscany').set({lowestPrice:"2859", highestPrice: "3269", rating: "3.5", risk:"0.51-1.60 (High)",image:"Camden.jpg", location:"Little Italy", estate2:"Camden Tuscany", lat: "32.722293", lng: "-117.169368", liq: "Yes"});
+        database.ref('Little Italy/Il Palazzo').set({lowestPrice:"1672", highestPrice: "3243", rating: "4", risk:"0.51-1.60 (High)",image:"IP.jpg",location:"Little Italy", estate2:"Il Palazzo", lat: "32.725953", lng: "-117.168563", liq: "Yes"});
+        database.ref('Clairemont/The Stratton').set({lowestPrice:"1475", highestPrice: "2880", rating: "1.5", risk:"0.51-1.60 (High)", image:"Stratton.jpg", location:"Clairemont", estate2:"The Stratton", lat: "32.817387", lng: "-117.177610", liq: "No"});
+        database.ref('Clairemont/Pacific Sands').set({lowestPrice:"1995", highestPrice: "2400", rating: "2.5", risk:"0.51-1.60 (High)", image:"PS.jpg", location:"Clairemont", estate2:"Pacific Sands", lat: "32.823028", lng: "-117.177570", liq: "No"});
+        database.ref('Mission Valley/Aquatera').set({lowestPrice:"2290", highestPrice: "3495", rating: "4", risk:"0.51-1.60 (High)", image:"Aquatera.jpg", location:"Mission Valley", estate2:"Aquatera", lat: "32.778716", lng: "-117.153517", liq: "Yes"});
+        database.ref('National City/Southern Highlands').set({lowestPrice:"995", highestPrice: "1195", rating: "1.5", risk:"0.18-0.50 (Low)", image:"SH.jpg", location:"National City", estate2:"Southern Highlands", lat: "32.663210", lng: "-117.092401", liq: "Yes"});
+        database.ref('Otay/Southgate Village').set({lowestPrice:"1325", highestPrice: "1700", rating: "1", risk:"0.18-0.50 (Low)", image:"SG.jpg", location:"Otay", estate2:"Southgate Village", lat: "32.580853", lng: "-117.063458", liq: "Yes"});
       });
 
     });
@@ -179,6 +188,7 @@ http://localhost:3000/housingApp.html
   <div id="highPrice"></div>
   <div id="rating"></div>
   <div id="risk"></div>
+  <div id="liq"></div>
   <img id="Image"></img>
   
   <p> or check all the available listings </p> 
